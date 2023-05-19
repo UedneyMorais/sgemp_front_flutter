@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-
+import '../../../shared/env/env.dart';
 import '../../ui.dart';
 
 class Login extends StatefulWidget {
@@ -24,8 +24,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
+    var screenSize = ScreenSize.getScreenSize(context);
 
     return Form(
       key: _homeController.formKey,
@@ -33,24 +32,26 @@ class _LoginState extends State<Login> {
         body: SingleChildScrollView(
           child: Center(
             child: Padding(
-              padding: EdgeInsets.only(top: height * 0.15),
+              padding: EdgeInsets.only(top: screenSize.height * 0.15),
               child: Column(
                 children: [
                   Stack(
                     fit: StackFit.loose,
                     children: [
                       SizedBox(
-                        width: width <= 667 ? width * 0.9 : width * 0.3,
+                        width: screenSize.width <= 667
+                            ? screenSize.width * 0.9
+                            : screenSize.width * 0.3,
                         child: Card(
                           shape: const LinearBorder(),
                           elevation: 30,
                           color: Colors.white,
                           child: Padding(
                             padding: EdgeInsets.only(
-                                top: height * 0.10,
-                                left: width * 0.02,
-                                right: width * 0.02,
-                                bottom: height * 0.10),
+                                top: screenSize.height * 0.10,
+                                left: screenSize.width * 0.02,
+                                right: screenSize.width * 0.02,
+                                bottom: screenSize.height * 0.10),
                             child: Column(
                               children: [
                                 TextFormField(
@@ -122,7 +123,7 @@ class _LoginState extends State<Login> {
                                   height: 15,
                                 ),
                                 SizedBox(
-                                  width: width * 0.50,
+                                  width: screenSize.width * 0.50,
                                   child: ElevatedButton(
                                     style: const ButtonStyle(
                                       backgroundColor: MaterialStatePropertyAll(
@@ -131,7 +132,6 @@ class _LoginState extends State<Login> {
                                     ),
                                     onPressed: () async {
                                       if (!_homeController.isLoading) {
-                                        print('CLICOU');
                                         setState(() {
                                           _homeController.isLoading = true;
                                         });
@@ -154,12 +154,14 @@ class _LoginState extends State<Login> {
                                             "ENTRAR",
                                             style: TextStyle(
                                                 fontSize:
-                                                    width <= 667 ? 14 : 12),
+                                                    screenSize.width <= 667
+                                                        ? 14
+                                                        : 12),
                                           ),
                                   ),
                                 ),
                                 SizedBox(
-                                  height: height * 0.03,
+                                  height: screenSize.width * 0.03,
                                 ),
                                 Align(
                                   alignment: Alignment.bottomCenter,
@@ -169,7 +171,10 @@ class _LoginState extends State<Login> {
                                         cursor:
                                             MaterialStateMouseCursor.clickable,
                                         child: GestureDetector(
-                                          onTap: () {},
+                                          onTap: () {
+                                            _homeController.createNewUser(
+                                                context: context);
+                                          },
                                           child: const Text("Criar conta"),
                                         ),
                                       ),
@@ -192,13 +197,16 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                       SizedBox(
-                        width: width <= 667 ? width * 0.9 : width * 0.3,
+                        width: screenSize.width <= 667
+                            ? screenSize.width * 0.9
+                            : screenSize.width * 0.3,
                         child: Card(
                             color: Colors.blueAccent,
                             shape: const LinearBorder(),
                             child: Padding(
                               padding: EdgeInsets.only(
-                                  top: height * 0.02, bottom: height * 0.02),
+                                  top: screenSize.height * 0.02,
+                                  bottom: screenSize.height * 0.02),
                               child: const Center(child: Text("SISTEMA TAL")),
                             )),
                       ),

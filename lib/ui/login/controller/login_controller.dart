@@ -53,7 +53,7 @@ class LoginController {
           .login(context: context, email: email, password: password);
 
       if (result['statusCode'] == 200) {
-        Navigator.of(context).push(MaterialPageRoute<Home>(
+        Navigator.of(context).pushReplacement(MaterialPageRoute<Home>(
           builder: (BuildContext context) {
             return const Home();
           },
@@ -84,5 +84,13 @@ class LoginController {
       return 'A senha digitada é muito pequena!';
     }
     return null;
+  }
+
+  createNewUser({required BuildContext context}) {
+    Navigator.of(context).pushReplacement(MaterialPageRoute<Home>(
+      builder: (BuildContext context) {
+        return NewUser();
+      },
+    ));
   }
 }
