@@ -66,8 +66,8 @@ class LoginController {
     }
   }
 
-  validateEmail(String value) {
-    if (value.isEmpty) {
+  validateEmail(dynamic value) {
+    if (value == null || value.isEmpty) {
       return 'O campo e-mail está vazio!';
     }
     if (!value.contains("@") || !value.contains(".")) {
@@ -76,8 +76,8 @@ class LoginController {
     return null;
   }
 
-  validatePassword(String value) {
-    if (value.isEmpty) {
+  validatePassword(dynamic value) {
+    if (value == null || value.isEmpty) {
       return 'O campo senha está vazio!';
     }
     if (value.length < 6) {

@@ -55,8 +55,8 @@ class _LoginState extends State<Login> {
                             child: Column(
                               children: [
                                 TextFormField(
-                                  validator: (value) => _homeController
-                                      .validateEmail(value ?? ''),
+                                  validator: (value) =>
+                                      _homeController.validateEmail(value),
                                   controller: _homeController
                                       .textEditingControllerEmail,
                                   decoration: const InputDecoration(
@@ -70,8 +70,8 @@ class _LoginState extends State<Login> {
                                   height: 7,
                                 ),
                                 TextFormField(
-                                  validator: (value) => _homeController
-                                      .validatePassword(value ?? ''),
+                                  validator: (value) =>
+                                      _homeController.validatePassword(value),
                                   controller: _homeController
                                       .textEditingControllerPassword,
                                   obscureText:
@@ -123,7 +123,7 @@ class _LoginState extends State<Login> {
                                   height: 15,
                                 ),
                                 SizedBox(
-                                  width: screenSize.width * 0.50,
+                                  width: double.infinity,
                                   child: ElevatedButton(
                                     style: const ButtonStyle(
                                       backgroundColor: MaterialStatePropertyAll(

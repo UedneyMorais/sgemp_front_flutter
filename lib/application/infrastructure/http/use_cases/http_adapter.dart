@@ -48,8 +48,8 @@ class HttpAdapter extends HttpOverrides implements HttpClientX {
   Future<HttpResponseX> delete(
       {required String uri, Map<String, String>? headers, Object? body}) async {
     Uri url = EnvironmentConstants.useHttps
-        ? Uri.https(endpoints.autorith, uri)
-        : Uri.http(endpoints.autorith, uri);
+        ? Uri.https(endpoints.autority, uri)
+        : Uri.http(endpoints.autority, uri);
 
     late HttpResponseX response;
     try {
@@ -118,8 +118,8 @@ class HttpAdapter extends HttpOverrides implements HttpClientX {
       required Map<String, String>? headers,
       Map<String, dynamic>? parameters}) async {
     Uri url = EnvironmentConstants.useHttps
-        ? Uri.https(endpoints.autorith, uri, parameters)
-        : Uri.http(endpoints.autorith, uri, parameters);
+        ? Uri.https(endpoints.autority, uri, parameters)
+        : Uri.http(endpoints.autority, uri, parameters);
     late HttpResponseX response;
 
     try {
@@ -185,8 +185,8 @@ class HttpAdapter extends HttpOverrides implements HttpClientX {
   Future<HttpResponseX> post(
       {required String uri, Map<String, String>? headers, Object? body}) async {
     Uri url = EnvironmentConstants.useHttps
-        ? Uri.https(endpoints.autorith, uri)
-        : Uri.http(endpoints.autorith, uri);
+        ? Uri.https(endpoints.autority, uri)
+        : Uri.http(endpoints.autority, uri);
 
     late HttpResponseX response;
     try {
@@ -256,8 +256,8 @@ class HttpAdapter extends HttpOverrides implements HttpClientX {
       required Object? body}) async {
     late HttpResponseX response;
     Uri url = EnvironmentConstants.useHttps
-        ? Uri.https(endpoints.autorith, uri)
-        : Uri.http(endpoints.autorith, uri);
+        ? Uri.https(endpoints.autority, uri)
+        : Uri.http(endpoints.autority, uri);
 
     try {
       http.Response apiResponse = await http

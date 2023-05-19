@@ -23,7 +23,7 @@ class AuthorityProvider with ChangeNotifier {
     "key": "Content-Type",
     "value": "application/json",
     "type": "text",
-    //"authorization": 'Bearer ' + token,
+    "authorization": 'Bearer ' + token,
   };
 
   AuthorityProvider({token, required Endpoints endpoints}) {
@@ -31,33 +31,11 @@ class AuthorityProvider with ChangeNotifier {
     _client = HttpAdapter(endpoint: _endpoints);
   }
 
-  // Future<dynamic> login(
-  //     {required String email, required String password}) async {
-  //   var _unencodedPath = _endpoints.getUri(endpoint: _endpoints.login);
-
-  //   var body = {"email": email, "password": password};
-
-  //   HttpResponseX response =
-  //       await _client.post(uri: _unencodedPath, headers: headers, body: body);
-
-  //   if (response.statusCode == HttpStatusCode.success) {
-  //     token = response.body;
-  //   } else {
-  //     token;
-  //   }
-  // }
   Future<dynamic> login(
       {required BuildContext context,
       required String email,
       required String password}) async {
-    var _authority = _endpoints.autorith;
-    var _endpoint = _endpoints.getUri(endpoint: _endpoints.login);
-
-    Uri uri = EnvironmentConstants.useHttps
-        ? Uri.https(_authority, _endpoint)
-        : Uri.http(_authority, _endpoint);
-
-    //var uri = Uri.http(_authority, _endpoint);
+    Uri uri = _endpoints.generateUri(endpoint: _endpoints.login);
 
     String loginBody = jsonEncode({"email": email, "password": password});
 
@@ -93,9 +71,6 @@ class AuthorityProvider with ChangeNotifier {
       }
     } catch (e) {
       _dynamicResponse = {'statusCode': 'X', 'body': e.toString()};
-      // logedOut = true;
-      // logging = false;
-      // loged = false;
     }
     notifyListeners();
     return Future.value(_dynamicResponse);
