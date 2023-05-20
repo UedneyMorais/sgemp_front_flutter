@@ -9,7 +9,6 @@ import 'package:sgemp_front_flutter/ui/ui.dart';
 import '../../../shared/shared.dart';
 
 class NewUserPageController {
-  final formKey = GlobalKey<FormState>();
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
 
@@ -25,7 +24,9 @@ class NewUserPageController {
 
   User loadedUser = User.empty();
 
-  registerUser({required BuildContext context}) async {
+  registerUser(
+      {required GlobalKey<FormState> formKey,
+      required BuildContext context}) async {
     if (formKey.currentState!.validate()) {
       loadedUser.firstname = textEditingControllerFirstName.text;
       loadedUser.lastname = textEditingControllerLastName.text;
@@ -38,12 +39,15 @@ class NewUserPageController {
       var result = await Provider.of<UserProvider>(context, listen: false)
           .registerUser(user: loadedUser);
       if (result['statusCode'] == 200) {
+        loadedUser = User.empty();
+
         Navigator.of(context).pushReplacement(MaterialPageRoute<Login>(
           builder: (BuildContext context) {
-            return const Login();
+            return Login();
           },
         ));
       } else if (result['statusCode'] != 200) {
+        loadedUser = User.empty();
         SnackbarWidget.showSnackBar(context,
             text: result['body'].toString(),
             duration: EnvironmentConstants.snackBarDuration);

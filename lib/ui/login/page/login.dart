@@ -1,23 +1,24 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
 import '../../../shared/env/env.dart';
 import '../../ui.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  Login({Key? key}) : super(key: key);
 
   @override
   State<Login> createState() => _LoginState();
 }
 
-LoginController _homeController = LoginController();
-
 class _LoginState extends State<Login> {
+  final LoginController _loginController = LoginController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   void initState() {
     setState(() {
-      _homeController.startSettings();
+      _loginController.startSettings();
     });
     super.initState();
   }
@@ -27,7 +28,7 @@ class _LoginState extends State<Login> {
     var screenSize = ScreenSize.getScreenSize(context);
 
     return Form(
-      key: _homeController.formKey,
+      key: _formKey,
       child: Scaffold(
         body: SingleChildScrollView(
           child: Center(
@@ -56,8 +57,8 @@ class _LoginState extends State<Login> {
                               children: [
                                 TextFormField(
                                   validator: (value) =>
-                                      _homeController.validateEmail(value),
-                                  controller: _homeController
+                                      _loginController.validateEmail(value),
+                                  controller: _loginController
                                       .textEditingControllerEmail,
                                   decoration: const InputDecoration(
                                     hintText: 'E-mail',
@@ -71,11 +72,11 @@ class _LoginState extends State<Login> {
                                 ),
                                 TextFormField(
                                   validator: (value) =>
-                                      _homeController.validatePassword(value),
-                                  controller: _homeController
+                                      _loginController.validatePassword(value),
+                                  controller: _loginController
                                       .textEditingControllerPassword,
                                   obscureText:
-                                      !_homeController.isPasswordVisible,
+                                      !_loginController.isPasswordVisible,
                                   decoration: InputDecoration(
                                     hintText: 'Senha',
                                     label: const Text("Senha"),
@@ -87,12 +88,12 @@ class _LoginState extends State<Login> {
                                       child: GestureDetector(
                                         onTap: () {
                                           setState(() {
-                                            _homeController.isPasswordVisible =
-                                                !_homeController
+                                            _loginController.isPasswordVisible =
+                                                !_loginController
                                                     .isPasswordVisible;
                                           });
                                         },
-                                        child: !_homeController
+                                        child: !_loginController
                                                 .isPasswordVisible
                                             ? const Icon(Icons.visibility)
                                             : const Icon(Icons.visibility_off),
@@ -108,10 +109,10 @@ class _LoginState extends State<Login> {
                                         title: const Text('Lembrar e-mail'),
                                         controlAffinity:
                                             ListTileControlAffinity.leading,
-                                        value: _homeController.rememberEmail,
+                                        value: _loginController.rememberEmail,
                                         onChanged: (bool value) {
                                           setState(() {
-                                            _homeController.rememberEmail =
+                                            _loginController.rememberEmail =
                                                 value;
                                           });
                                         },
@@ -131,18 +132,18 @@ class _LoginState extends State<Login> {
                                       ),
                                     ),
                                     onPressed: () async {
-                                      if (!_homeController.isLoading) {
+                                      if (!_loginController.isLoading) {
                                         setState(() {
-                                          _homeController.isLoading = true;
+                                          _loginController.isLoading = true;
                                         });
-                                        await _homeController.login(
+                                        await _loginController.login(
                                             context: context);
                                         setState(() {
-                                          _homeController.isLoading = false;
+                                          _loginController.isLoading = false;
                                         });
                                       }
                                     },
-                                    child: _homeController.isLoading
+                                    child: _loginController.isLoading
                                         ? const SizedBox(
                                             height: 15,
                                             width: 15,
@@ -172,7 +173,8 @@ class _LoginState extends State<Login> {
                                             MaterialStateMouseCursor.clickable,
                                         child: GestureDetector(
                                           onTap: () {
-                                            _homeController.createNewUser(
+                                            _loginController.createNewUser(
+                                                formKey: _formKey,
                                                 context: context);
                                           },
                                           child: const Text("Criar conta"),

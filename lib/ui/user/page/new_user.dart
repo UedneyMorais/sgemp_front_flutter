@@ -5,21 +5,22 @@ import '/shared/shared.dart';
 import '../../ui.dart';
 
 class NewUser extends StatefulWidget {
-  NewUser({super.key});
+  NewUser({Key? key}) : super(key: key);
 
   @override
   State<NewUser> createState() => _NewUserState();
 }
 
-NewUserPageController _newUserPageController = NewUserPageController();
-
 class _NewUserState extends State<NewUser> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final NewUserPageController _newUserPageController = NewUserPageController();
+
   @override
   Widget build(BuildContext context) {
     var screenSize = ScreenSize.getScreenSize(context);
 
     return Form(
-      key: _newUserPageController.formKey,
+      key: _formKey,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Cadastro de usuários'),
@@ -186,7 +187,7 @@ class _NewUserState extends State<NewUser> {
                                   _newUserPageController.isLoading = true;
                                 });
                                 await _newUserPageController.registerUser(
-                                    context: context);
+                                    formKey: _formKey, context: context);
                                 setState(() {
                                   _newUserPageController.isLoading = false;
                                 });

@@ -10,9 +10,9 @@ import '../../../shared/env/env.dart';
 import '../../ui.dart';
 
 class LoginController {
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerPassword = TextEditingController();
-  final formKey = GlobalKey<FormState>();
 
   bool isPasswordVisible = false;
   bool rememberEmail = false;
@@ -86,8 +86,9 @@ class LoginController {
     return null;
   }
 
-  createNewUser({required BuildContext context}) {
-    Navigator.of(context).pushReplacement(MaterialPageRoute<Home>(
+  createNewUser(
+      {required GlobalKey<FormState> formKey, required BuildContext context}) {
+    Navigator.of(context).push(MaterialPageRoute<Home>(
       builder: (BuildContext context) {
         return NewUser();
       },

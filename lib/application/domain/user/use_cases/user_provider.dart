@@ -38,37 +38,6 @@ class UserProvider with ChangeNotifier {
     "authorization": 'Bearer ' + token,
   };
 
-  // Future<dynamic> getVehicles() async {
-  //   var _unencodedPath = _endpoints.getUri(endpoint: _endpoints.getAllUsers);
-  //   HttpResponseX response =
-  //       await _client.get(uri: _unencodedPath, headers: headers);
-
-  //   if (response.statusCode == HttpStatusCode.success) {
-  //     loadedVehicles =
-  //         response.body.map<User>((e) => User.fromJson(e)).toList();
-  //   } else {
-  //     loadedVehicles = [];
-  //   }
-  // }
-
-  // Future<dynamic> registerUser({required User user}) async {
-  //   Map<String, String> header = {
-  //     "Accept": "application/json",
-  //     "content-type": "application/json",
-  //     "key": "Content-Type",
-  //     "value": "application/json",
-  //     "type": "text"
-  //   };
-  //   var _uri = _endpoints.getUri(endpoint: _endpoints.register);
-  //   HttpResponseX response =
-  //       await _client.post(uri: _uri, headers: headers, body: user);
-
-  //   print(response.body.toString());
-
-  //   notifyListeners();
-  //   return response.statusCode;
-  // }
-
   Future<dynamic> registerUser({required User user}) async {
     Uri uri = _endpoints.generateUri(endpoint: _endpoints.register);
 
