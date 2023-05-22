@@ -4,21 +4,24 @@ import 'package:flutter/material.dart';
 import '../../../shared/env/env.dart';
 import '../../ui.dart';
 
-class Login extends StatefulWidget {
-  Login({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<Login> createState() => _LoginState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginState extends State<Login> {
-  final LoginController _loginController = LoginController();
+class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final LoginController _loginController = LoginController();
 
   @override
   void initState() {
     setState(() {
       _loginController.startSettings();
+      // _loginController.textEditingControllerEmail.text =
+      //     "uedneymorais@gmail.com";
+      // _loginController.textEditingControllerPassword.text = "123456";
     });
     super.initState();
   }
@@ -42,7 +45,9 @@ class _LoginState extends State<Login> {
                       SizedBox(
                         width: screenSize.width <= 667
                             ? screenSize.width * 0.9
-                            : screenSize.width * 0.3,
+                            : screenSize.width >= 667 && screenSize.width < 1024
+                                ? screenSize.width * 0.6
+                                : screenSize.width * 0.3,
                         child: Card(
                           shape: const LinearBorder(),
                           elevation: 30,
@@ -56,8 +61,8 @@ class _LoginState extends State<Login> {
                             child: Column(
                               children: [
                                 TextFormField(
-                                  validator: (value) =>
-                                      _loginController.validateEmail(value),
+                                  validator: (value) => _loginController
+                                      .validateEmail(value: value),
                                   controller: _loginController
                                       .textEditingControllerEmail,
                                   decoration: const InputDecoration(
@@ -71,8 +76,8 @@ class _LoginState extends State<Login> {
                                   height: 7,
                                 ),
                                 TextFormField(
-                                  validator: (value) =>
-                                      _loginController.validatePassword(value),
+                                  validator: (value) => _loginController
+                                      .validatePassword(value: value),
                                   controller: _loginController
                                       .textEditingControllerPassword,
                                   obscureText:
@@ -126,9 +131,9 @@ class _LoginState extends State<Login> {
                                 SizedBox(
                                   width: double.infinity,
                                   child: ElevatedButton(
-                                    style: const ButtonStyle(
+                                    style: ButtonStyle(
                                       backgroundColor: MaterialStatePropertyAll(
-                                        Colors.blueAccent,
+                                        Colors.green[800],
                                       ),
                                     ),
                                     onPressed: () async {
@@ -137,6 +142,7 @@ class _LoginState extends State<Login> {
                                           _loginController.isLoading = true;
                                         });
                                         await _loginController.login(
+                                            formKey: _formKey,
                                             context: context);
                                         setState(() {
                                           _loginController.isLoading = false;
@@ -201,9 +207,11 @@ class _LoginState extends State<Login> {
                       SizedBox(
                         width: screenSize.width <= 667
                             ? screenSize.width * 0.9
-                            : screenSize.width * 0.3,
+                            : screenSize.width >= 667 && screenSize.width < 1024
+                                ? screenSize.width * 0.6
+                                : screenSize.width * 0.3,
                         child: Card(
-                            color: Colors.blueAccent,
+                            color: Colors.green[800],
                             shape: const LinearBorder(),
                             child: Padding(
                               padding: EdgeInsets.only(

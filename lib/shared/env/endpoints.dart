@@ -25,7 +25,7 @@ class Endpoints {
   static const String _login = '/auth/authenticate';
   String get login => _login;
 
-  static const String _findUserByEmail = '/user/email/{email}';
+  static const String _findUserByEmail = '/users/email/{email}';
   String get findUserByEmail => _findUserByEmail;
 
   void setAutority() {

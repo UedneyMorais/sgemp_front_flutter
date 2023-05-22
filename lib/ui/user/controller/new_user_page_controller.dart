@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:sgemp_front_flutter/application/application.dart';
-import 'package:sgemp_front_flutter/ui/ui.dart';
 
 import '../../../shared/shared.dart';
+import '../../ui.dart';
 
 class NewUserPageController {
   bool isPasswordVisible = false;
@@ -41,9 +41,9 @@ class NewUserPageController {
       if (result['statusCode'] == 200) {
         loadedUser = User.empty();
 
-        Navigator.of(context).pushReplacement(MaterialPageRoute<Login>(
+        Navigator.of(context).pushReplacement(MaterialPageRoute<LoginPage>(
           builder: (BuildContext context) {
-            return Login();
+            return LoginPage();
           },
         ));
       } else if (result['statusCode'] != 200) {

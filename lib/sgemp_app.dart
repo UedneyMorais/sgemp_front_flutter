@@ -28,10 +28,11 @@ class SgempApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Sistema de gerenciamento de empresas',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.greenAccent),
           useMaterial3: false,
         ),
-        home: Login(),
+        home: LoginPage(),
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

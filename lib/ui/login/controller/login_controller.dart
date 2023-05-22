@@ -10,7 +10,6 @@ import '../../../shared/env/env.dart';
 import '../../ui.dart';
 
 class LoginController {
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerPassword = TextEditingController();
 
@@ -45,20 +44,24 @@ class LoginController {
     await readSharedPreferences();
   }
 
-  login({required BuildContext context}) async {
+  login(
+      {required GlobalKey<FormState> formKey,
+      required BuildContext context}) async {
     String email = textEditingControllerEmail.text;
     String password = textEditingControllerPassword.text;
     if (formKey.currentState!.validate()) {
       var result = await Provider.of<AuthorityProvider>(context, listen: false)
           .login(context: context, email: email, password: password);
 
-      if (result['statusCode'] == 200) {
+      if (result != null && result['statusCode'] == 200) {
         Navigator.of(context).pushReplacement(MaterialPageRoute<Home>(
           builder: (BuildContext context) {
-            return const Home();
+            return const Home(
+                // email: email,
+                );
           },
         ));
-      } else if (result['statusCode'] != 200) {
+      } else if (result != null && result['statusCode'] != 200) {
         SnackbarWidget.showSnackBar(context,
             text: result['body'].toString(),
             duration: EnvironmentConstants.snackBarDuration);
@@ -66,7 +69,7 @@ class LoginController {
     }
   }
 
-  validateEmail(dynamic value) {
+  validateEmail({required dynamic value}) {
     if (value == null || value.isEmpty) {
       return 'O campo e-mail está vazio!';
     }
@@ -76,7 +79,7 @@ class LoginController {
     return null;
   }
 
-  validatePassword(dynamic value) {
+  validatePassword({required dynamic value}) {
     if (value == null || value.isEmpty) {
       return 'O campo senha está vazio!';
     }

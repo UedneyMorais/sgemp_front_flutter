@@ -1,29 +1,25 @@
 import 'dart:convert';
 
-import '../../domain.dart';
+UserDto userDtoFromJson(String str) => UserDto.fromJson(json.decode(str));
 
-User userFromJson(String str) => User.fromJson(json.decode(str));
+String userDtoToJson(UserDto data) => json.encode(data.toJson());
 
-String userToJson(User data) => json.encode(data.toJson());
-
-class User {
+class UserDto {
   int id;
   String firstname;
   String lastname;
   String email;
-  String password;
   String role;
   bool enabled;
   bool accountNonExpired;
   bool accountNonLocked;
   bool credentialsNonExpired;
 
-  User({
+  UserDto({
     required this.id,
     required this.firstname,
     required this.lastname,
     required this.email,
-    required this.password,
     required this.role,
     required this.enabled,
     required this.accountNonExpired,
@@ -31,12 +27,11 @@ class User {
     required this.credentialsNonExpired,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) => User(
+  factory UserDto.fromJson(Map<String, dynamic> json) => UserDto(
         id: json["id"] ?? 0,
         firstname: json["firstname"] ?? '',
         lastname: json["lastname"] ?? '',
         email: json["email"] ?? '',
-        password: json["password"] ?? '',
         role: json["role"] ?? '',
         enabled: json["enabled"] ?? 'false',
         accountNonExpired: json["accountNonExpired"] ?? 'false',
@@ -44,36 +39,22 @@ class User {
         credentialsNonExpired: json["credentialsNonExpired"] ?? 'false',
       );
 
-  User.empty()
+  UserDto.empty()
       : id = 0,
         firstname = '',
         lastname = '',
         email = '',
-        password = '',
         role = 'USER',
         enabled = true,
         accountNonExpired = true,
         accountNonLocked = true,
         credentialsNonExpired = true;
 
-  User.fromUserDto(UserDto userDto)
-      : id = userDto.id,
-        firstname = userDto.firstname,
-        lastname = userDto.lastname,
-        email = userDto.email,
-        password = '',
-        role = userDto.role,
-        enabled = userDto.enabled,
-        accountNonExpired = userDto.accountNonExpired,
-        accountNonLocked = userDto.accountNonLocked,
-        credentialsNonExpired = userDto.credentialsNonExpired;
-
   Map<String, dynamic> toJson() => {
         "id": id,
         "firstname": firstname,
         "lastname": lastname,
         "email": email,
-        "password": password,
         "role": role,
         "enabled": enabled,
         "accountNonExpired": accountNonExpired,
