@@ -53,15 +53,8 @@ class AuthorityProvider with ChangeNotifier {
       if (response.statusCode == 200) {
         Map<String, dynamic> rawJson = jsonDecode(response.body);
         token = rawJson['token'];
-        var loggedUser = rawJson['userDto'];
-        var userDto = UserDto.fromJson(loggedUser);
 
-        loggedUser = User.fromUserDto(userDto);
-
-        _dynamicResponse = {
-          'statusCode': response.statusCode,
-          'body': loggedUser
-        };
+        _dynamicResponse = {'statusCode': response.statusCode, 'body': ''};
         notifyListeners();
       } else if (response.statusCode == 403) {
         _dynamicResponse = {

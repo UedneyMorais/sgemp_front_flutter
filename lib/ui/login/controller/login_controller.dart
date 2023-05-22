@@ -56,9 +56,7 @@ class LoginController {
       if (result != null && result['statusCode'] == 200) {
         Navigator.of(context).pushReplacement(MaterialPageRoute<Home>(
           builder: (BuildContext context) {
-            return const Home(
-                // email: email,
-                );
+            return const Home();
           },
         ));
       } else if (result != null && result['statusCode'] != 200) {
