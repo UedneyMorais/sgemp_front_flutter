@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sgemp_front_flutter/application/application.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '/application/application.dart';
 import '../../../shared/components/components.dart';
 import '../../../shared/env/env.dart';
 import '../../ui.dart';
