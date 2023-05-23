@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sgemp_front_flutter/application/application.dart';
-import 'package:sgemp_front_flutter/application/domain/login/entities/login.dart';
 
+import '/application/application.dart';
+import '/application/domain/login/entities/login.dart';
 import '../../../../ui/ui.dart';
 
 class AppBarWidgetController {
